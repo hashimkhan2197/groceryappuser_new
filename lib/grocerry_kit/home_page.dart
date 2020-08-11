@@ -4,6 +4,7 @@ import 'package:groceryappuser/grocerry_kit/profile.dart';
 import 'package:groceryappuser/grocerry_kit/store_package/stores_list_screen.dart';
 import 'package:groceryappuser/grocerry_kit/sub_pages/order_history.dart';
 import 'package:groceryappuser/utils/cart_icons_icons.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 import 'help_Page.dart';
 import 'sub_pages/cartPage.dart';
@@ -99,7 +100,7 @@ class _HomePageState extends State<HomePage> {
       centerTitle: true,
       brightness: Brightness.dark,
       elevation: 0,
-      backgroundColor: Colors.blue,
+      backgroundColor: Hexcolor('#0644e3'),
       automaticallyImplyLeading: false,
       title: Text(
         widget.storeName,

@@ -5,6 +5,7 @@ import 'package:groceryappuser/providers/cart.dart';
 import 'package:groceryappuser/providers/collection_names.dart';
 import 'package:groceryappuser/providers/order_model.dart';
 import 'package:groceryappuser/providers/user.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 class OrderPage extends StatefulWidget {
   OrderPage(this.orderSnapshot);
@@ -27,7 +28,7 @@ class _OrderPageState extends State<OrderPage> {
   void initState() {
     _orderItem = _covertToOrderItem(widget.orderSnapshot);
     print(_orderItem.cartItemList);
-    _total = double.parse(_orderItem.subTotal)+double.parse(_orderItem.deliveryCharges);
+    _total = double.parse(_orderItem.subTotal)+double.parse(_orderItem.deliveryCharges)-double.parse(_orderItem.discPercentage);
     super.initState();
   }
 
@@ -75,7 +76,7 @@ class _OrderPageState extends State<OrderPage> {
             centerTitle: true,
             brightness: Brightness.dark,
             elevation: 0,
-            backgroundColor: Colors.blue,
+            backgroundColor: Hexcolor('#0644e3'),
             leading: GestureDetector(
               onTap: () {
                 Navigator.pop(context);
@@ -210,14 +211,14 @@ class _OrderPageState extends State<OrderPage> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Text(
-                            "Discount %: ",
+                            "Discount: ",
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
                           Text(
-                            _orderItem.discPercentage,
+                            _orderItem.discPercentage + ' SEK',
                             style: TextStyle(
                               fontSize: 18,
                               //fontWeight: FontWeight.w500,
@@ -493,7 +494,7 @@ class _OrderPageState extends State<OrderPage> {
           shape: BoxShape.rectangle,
           borderRadius: BorderRadius.circular(8),
           color: Colors.white70),
-      height: 110,
+      height: 120,
       child: Row(children: <Widget>[
         Container(
           width: 90,

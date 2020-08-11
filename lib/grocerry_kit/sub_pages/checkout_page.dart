@@ -7,6 +7,8 @@ import 'package:flutter/services.dart';
 import 'package:groceryappuser/providers/cart.dart';
 import 'package:groceryappuser/providers/collection_names.dart';
 import 'package:groceryappuser/providers/user.dart';
+import 'package:hexcolor/hexcolor.dart';
+import 'package:mailgun/mailgun.dart';
 import 'package:provider/provider.dart';
 
 class CheckoutPage extends StatefulWidget {
@@ -40,7 +42,6 @@ class _CheckoutPageState extends State<CheckoutPage> {
   bool _selectDelivery = false;
   bool _orderSuccessful = false;
 
-
   TextEditingController _addressController;
   TextEditingController _numberController;
   TextEditingController _nameController;
@@ -56,7 +57,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
     UserModel userProfile =
         Provider.of<User>(context, listen: false).userProfile;
     List<CartItem> cartItemList =
@@ -65,13 +66,20 @@ class _CheckoutPageState extends State<CheckoutPage> {
     _nameController = TextEditingController(text: userProfile.name);
     _numberController = TextEditingController(text: userProfile.phoneNumber);
     _emailController = TextEditingController(text: userProfile.email);
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    UserModel userProfile =
+        Provider.of<User>(context, listen: false).userProfile;
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
         centerTitle: true,
         brightness: Brightness.dark,
         elevation: 0,
-        backgroundColor: Colors.blue,
+        backgroundColor: Hexcolor('#0644e3'),
         leading: GestureDetector(
           onTap: () {
             Navigator.pop(context);
@@ -87,13 +95,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
       ),
       body: _orderSuccessful == true
           ? Center(
-              child: Text(
-                "Order Placed Successfully",
-                style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).primaryColor),
-              ),
+              child: Icon(Icons.thumb_up,color: Colors.green,size: 220,)
             )
           : SingleChildScrollView(
               child: Column(
@@ -144,7 +146,6 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                 //_deliveryTime = snapshot.data.documents[index].data['deliveryTime'];
                                 _scheduleDeliveryTime = false;
                                 _selectDelivery = true;
-
                               });
                             },
                             child: Padding(
@@ -154,7 +155,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                 style: TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.w500,
-                                    color: Colors.blue),
+                                    color: Hexcolor('#0644e3')),
                               ),
                             ),
                           ),
@@ -165,7 +166,8 @@ class _CheckoutPageState extends State<CheckoutPage> {
                             child: StreamBuilder(
                               stream: Firestore.instance
                                   .collection(delivery_timings_collection)
-                                  .where('status', isEqualTo: 'active').orderBy('deliveryTime')
+                                  .where('status', isEqualTo: 'active')
+                                  .orderBy('deliveryTime')
                                   .snapshots(),
                               builder: (context, AsyncSnapshot snapshot) {
                                 switch (snapshot.connectionState) {
@@ -195,13 +197,17 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                             child: Padding(
                                               padding:
                                                   const EdgeInsets.all(8.0),
-                                              child: Text("Delivery within "+
-                                                snapshot.data.documents[index]
-                                                    .data["deliveryTime"],
+                                              child: Text(
+                                                "Delivery within " +
+                                                    snapshot
+                                                        .data
+                                                        .documents[index]
+                                                        .data["deliveryTime"],
                                                 style: TextStyle(
                                                     fontSize: 20,
                                                     fontWeight: FontWeight.w500,
-                                                    color: Theme.of(context).primaryColor),
+                                                    color: Theme.of(context)
+                                                        .primaryColor),
                                               ),
                                             ),
                                           );
@@ -211,7 +217,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                             ),
                           ),
                         //delivery time buttons schedule
-                        if(_scheduleDeliveryTime == false)
+                        if (_scheduleDeliveryTime == false)
                           FlatButton(
                             onPressed: () {
                               setState(() {
@@ -227,7 +233,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                 style: TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.w500,
-                                    color: Colors.blue),
+                                    color: Hexcolor('#0644e3')),
                               ),
                             ),
                           ),
@@ -237,7 +243,8 @@ class _CheckoutPageState extends State<CheckoutPage> {
                             child: StreamBuilder(
                               stream: Firestore.instance
                                   .collection(delivery_schedule_collection)
-                                  .where('status', isEqualTo: 'active').orderBy('t')
+                                  .where('status', isEqualTo: 'active')
+                                  .orderBy('t')
                                   .snapshots(),
                               builder: (context, AsyncSnapshot snapshot) {
                                 switch (snapshot.connectionState) {
@@ -269,13 +276,18 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                               child: Padding(
                                                 padding:
                                                     const EdgeInsets.all(4.0),
-                                                child: Text("From: "+
-                                                  snapshot.data.documents[index]
-                                                      .data["deliveryTime"],
+                                                child: Text(
+                                                  "From: " +
+                                                      snapshot
+                                                          .data
+                                                          .documents[index]
+                                                          .data["deliveryTime"],
                                                   style: TextStyle(
                                                       fontSize: 20,
-                                                      fontWeight: FontWeight.w500,
-                                                      color: Theme.of(context).primaryColor),
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      color: Theme.of(context)
+                                                          .primaryColor),
                                                 ),
                                               ),
                                             ),
@@ -343,7 +355,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                 style: TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.w500,
-                                    color: Colors.blue),
+                                    color: Hexcolor('#0644e3')),
                               ),
                             ),
                           ),
@@ -375,14 +387,14 @@ class _CheckoutPageState extends State<CheckoutPage> {
                             child: FlatButton(
                               onPressed: () {
                                 setState(() {
-                                  _paymentMethod = "Swipe On Delivery";
+                                  _paymentMethod = "Swish On Delivery";
                                   _selectPaymentMethod = false;
                                 });
                               },
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
-                                  "Swipe On Delivery",
+                                  "Swish On Delivery",
                                   style: TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.w500,
@@ -495,21 +507,15 @@ class _CheckoutPageState extends State<CheckoutPage> {
                               alignment: Alignment.centerRight,
                               margin: EdgeInsets.all(0),
                               width: MediaQuery.of(context).size.width * .6,
-                              child: TextField(
-                                maxLines: 2,
-                                controller: _emailController,
-                                keyboardType: TextInputType.text,
-                                style: TextStyle(fontSize: 17),
-                                decoration: InputDecoration(
-                                  hintText: 'Email',
-                                  enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(8),
-                                      borderSide:
-                                          BorderSide(color: Colors.grey)),
-                                  focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(8),
-                                      borderSide:
-                                          BorderSide(color: Colors.grey)),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  userProfile.email,
+                                  maxLines: 2,
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.grey),
                                 ),
                               ),
                             ),
@@ -562,7 +568,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                       : Container(
                           margin: EdgeInsets.only(top: 16, bottom: 16),
                           decoration: BoxDecoration(
-                            color: Theme.of(context).primaryColor,
+                            color: Hexcolor('#0644e3'),
                             shape: BoxShape.rectangle,
                             borderRadius: BorderRadius.all(Radius.circular(8)),
                           ),
@@ -575,19 +581,18 @@ class _CheckoutPageState extends State<CheckoutPage> {
                               setState(() {
                                 _isLoading = true;
                               });
-                              if(_deliveryTime == ""){
+                              if (_deliveryTime == "") {
                                 _scaffoldKey.currentState.showSnackBar(SnackBar(
                                   content: Text(
                                     "Please select a delivery time.",
                                   ),
-                                  backgroundColor: Colors.blue,
+                                  backgroundColor: Hexcolor('#0644e3'),
                                 ));
-                              }else if(_paymentMethod == ""){
+                              } else if (_paymentMethod == "") {
                                 _scaffoldKey.currentState.showSnackBar(SnackBar(
-                                  content: Text(
-                                    "Please select a payment method."
-                                  ),
-                                  backgroundColor: Colors.blue,
+                                  content:
+                                      Text("Please select a payment method."),
+                                  backgroundColor: Hexcolor('#0644e3'),
                                 ));
                               }
                               if (_deliveryTime != "" && _paymentMethod != "") {
@@ -668,15 +673,16 @@ class _CheckoutPageState extends State<CheckoutPage> {
       cartItems = value;
     });
     DateTime timestamp = DateTime.now();
-    var url="";
-    if(widget.extraStuffFile!= null){
-      final ref =
-      FirebaseStorage.instance.ref().child('images').child(DateTime.now().toString()+ ".jpg");
+    var url = "";
+    if (widget.extraStuffFile != null) {
+      final ref = FirebaseStorage.instance
+          .ref()
+          .child('images')
+          .child(DateTime.now().toString() + ".jpg");
       await ref.putFile(widget.extraStuffFile).onComplete;
 
       url = await ref.getDownloadURL();
     }
-
 
     try {
       await Firestore.instance.collection(orders_Collection).add({
@@ -690,7 +696,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
         "userUid": userProfile.userDocId,
         'deliveryCharges': widget.deliveryCharges.toString(),
         'subTotal': widget.subtotal.toString(),
-        'discPercentage': widget.discountPercentage.toString(),
+        'discPercentage': widget.discountPercentage.toStringAsFixed(2),
         'deliveryTime': _deliveryTime,
         'dateTime': timestamp.toIso8601String(),
         'completed': false,
@@ -717,6 +723,22 @@ class _CheckoutPageState extends State<CheckoutPage> {
           doc.reference.delete();
         }
       });
+
+      var mailgun = MailgunMailer(
+          domain: "sandboxb3269b02eb6f4bc789076e97bfb4a3bd.mailgun.org",
+          apiKey: "39df356f312ceaa3dfcc1cc1b7e7f09d-a65173b1-a61e6b40");
+
+      List<String> a = [
+        "pranay.moghatal@gmail.com"
+      ];
+      await mailgun.send(
+          from: "doodelservicesapp@gmail.com",
+          to: a,
+          subject: "Doodel App",
+          text:"You have received a new order.").then((value) {
+            print(value.status);
+      });
+
     } catch (err) {
       print(err);
       var message =

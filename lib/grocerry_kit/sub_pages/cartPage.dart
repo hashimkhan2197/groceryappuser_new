@@ -7,6 +7,7 @@ import 'package:groceryappuser/providers/cart.dart';
 import 'package:groceryappuser/providers/collection_names.dart';
 import 'package:groceryappuser/providers/user.dart';
 import 'package:groceryappuser/widgets/custom_image_picker.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 
 import '../../style_functions.dart';
@@ -24,6 +25,7 @@ class _CartPageState extends State<CartPage> {
   TextEditingController _extraStuffController = TextEditingController();
   bool promoCodeChecker = true;
   double _discountPercentage = 0;
+  double _discount = 0;
   double _deliveryCharges = 0;
   double _subtotal = 0;
   double _total = 0;
@@ -60,7 +62,7 @@ class _CartPageState extends State<CartPage> {
           centerTitle: true,
           brightness: Brightness.dark,
           elevation: 0,
-          backgroundColor: Colors.blue,
+          backgroundColor: Hexcolor('#0644e3'),
           automaticallyImplyLeading: false,
           title: Text(
             'Cart',
@@ -79,7 +81,7 @@ class _CartPageState extends State<CartPage> {
             }
             final snapShotData = snapshot.data.documents;
             if(snapShotData.length == 0){
-              return Center(child: Text("Cart is empty.",style:TextStyle(color: Colors.grey,fontSize: 30)),);
+              return Center(child: Text("Cart is empty.",style:TextStyle(color: Hexcolor('#0644e3'),fontSize: 30)),);
             }
             if (snapShotData.length > 0) {
               _subtotal = 0;
@@ -89,15 +91,18 @@ class _CartPageState extends State<CartPage> {
               });
 
               if (_subtotal < 100) {
-                _deliveryCharges = 40;
+                _deliveryCharges = double.parse(Provider.of<User>(context).first);
               } else if (_subtotal < 200) {
-                _deliveryCharges = 35;
+                _deliveryCharges = double.parse(Provider.of<User>(context).second);
               } else if (_subtotal > 200) {
-                _deliveryCharges = 30;
+                _deliveryCharges = double.parse(Provider.of<User>(context).third);
               }
 
-              _total = _subtotal + _deliveryCharges;
-              _total = _total - (_total * _discountPercentage * 0.01);
+
+              _total = _subtotal - (_subtotal * _discountPercentage * 0.01);
+              _discount = _subtotal - _total;
+              _total = _total + _deliveryCharges;
+
             }
             return SingleChildScrollView(
               child: Column(
@@ -141,6 +146,40 @@ class _CartPageState extends State<CartPage> {
                     ),
                   ),
 
+                  ///Cancel Order Buttons
+                  Container(
+                    margin: EdgeInsets.only(top: 12, bottom: 12),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      shape: BoxShape.rectangle,
+                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                    ),
+                    alignment: Alignment.center,
+                    child: FlatButton(
+                      child: Text('Remove All Items',
+                          style: TextStyle(fontSize: 20, color: Hexcolor('#0644e3'))),
+                      onPressed: () async {
+//                        setState(() {
+//                          _isLoading = true;
+//                        });
+                        await Firestore.instance
+                            .collection(users_collection)
+                            .document(userProfile.userDocId)
+                            .collection('cart')
+                            .getDocuments()
+                            .then((QuerySnapshot snapshot) {
+                          for (DocumentSnapshot doc in snapshot.documents) {
+                            doc.reference.delete();
+                          }
+                        }).then((value) {
+                          setState(() {
+//                            _isLoading = false;
+                          });
+//                          Navigator.pop(context);
+                        });
+                      },
+                    ),
+                  ),
                   ///Extra stuff column
                   Container(
                     margin: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
@@ -155,7 +194,7 @@ class _CartPageState extends State<CartPage> {
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
                         Text(
-                          "Do you want to add anything else that is not mentioned her and you know its in the store?\nDon't worry, we will get it to you! :)",
+                          "Do you want to add anything else that is not mentioned here and you know its in the store?\nDon't worry, we will get it to you! :)",
                           maxLines: 5,
                           style: TextStyle(
                               fontWeight: FontWeight.w400,
@@ -259,9 +298,7 @@ class _CartPageState extends State<CartPage> {
                               },
                               child: Text(
                                 "Apply",
-                                style: TextStyle(color: Theme
-                                    .of(context)
-                                    .primaryColor),
+                                style: TextStyle(color: Hexcolor('#0644e3')),
                               ),
                             )
                           ],
@@ -277,29 +314,7 @@ class _CartPageState extends State<CartPage> {
                         SizedBox(
                           height: 6,
                         ),
-                        if (_discountPercentage > 0)
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Text(
-                                "Discount %: ",
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              Text(
-                                _discountPercentage.toString(),
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  //fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ],
-                          ),
-                        SizedBox(
-                          height: 6,
-                        ),
+
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
@@ -319,6 +334,29 @@ class _CartPageState extends State<CartPage> {
                             ),
                           ],
                         ),
+                        SizedBox(
+                          height: 6,
+                        ),
+                        if (_discountPercentage > 0)
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Text(
+                                "You have saved: ",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              Text(
+                                _discount.toStringAsFixed(2)+" SEK",
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  //fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ],
+                          ),
                         SizedBox(
                           height: 6,
                         ),
@@ -355,7 +393,7 @@ class _CartPageState extends State<CartPage> {
                               ),
                             ),
                             Text(
-                              _total.toString() + " SEK",
+                              _total.toStringAsFixed(2) + " SEK",
                               style: TextStyle(
                                 fontSize: 22,
                                 fontWeight: FontWeight.w500,
@@ -370,7 +408,7 @@ class _CartPageState extends State<CartPage> {
                   Container(
                     margin: EdgeInsets.only(top: 16, bottom: 16),
                     decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColor,
+                      color: Hexcolor('#0644e3'),
                       shape: BoxShape.rectangle,
                       borderRadius: BorderRadius.all(Radius.circular(8)),
                     ),
@@ -385,7 +423,7 @@ class _CartPageState extends State<CartPage> {
                       onPressed: () {
                         Navigator.push(context, MaterialPageRoute(builder: (context){
                           return CheckoutPage(deliveryCharges: _deliveryCharges,
-                          discountPercentage:_discountPercentage ,
+                          discountPercentage:_discount ,
                           extraStuffOrdered: _extraStuffController.text,
                             extraStuffFile: _productImageFile,
                             subtotal: _subtotal,
@@ -395,6 +433,7 @@ class _CartPageState extends State<CartPage> {
                       },
                     ),
                   ),
+
                 ],
               ),
             );

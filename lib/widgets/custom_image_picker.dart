@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:image_picker/image_picker.dart';
 
 class UserImagePicker extends StatefulWidget {
@@ -48,7 +49,7 @@ class _UserImagePickerState extends State<UserImagePicker> {
           ),
 //
           FlatButton.icon(
-            textColor: Theme.of(context).primaryColor,
+            textColor: Hexcolor('#0644e3'),
             onPressed: _pickImage,
             icon: Icon(Icons.image),
             label: Text("Add Image"),

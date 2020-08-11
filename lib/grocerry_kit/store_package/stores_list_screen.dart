@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:groceryappuser/providers/collection_names.dart';
 import 'package:groceryappuser/providers/store.dart';
 import 'package:groceryappuser/providers/user.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 
 import '../home_page.dart';
@@ -25,20 +26,21 @@ class _StoresListPageState extends State<StoresListPage> {
         title: Text(
           "Stores",style: TextStyle(color: Colors.white,fontSize: 24)
         ),
-        backgroundColor: Colors.blue,
+        backgroundColor: Hexcolor('#0644e3'),
       ),
       //bottomNavigationBar: BottomBar(),
       body: SafeArea(
-        child: SingleChildScrollView(
+        child: Container(
+          height: MediaQuery.of(context).size.height,
           child: Column(
-            mainAxisSize: MainAxisSize.min,
+//            mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               SizedBox(height: 10,),
               Container(
                 alignment: Alignment.centerLeft,
                 padding: EdgeInsets.only(left: 16, top: 4),
                 child: Text(
-                  "Choose your favourate grocery store or the one nearest to you.",
+                  "Choose your favourite grocery store or the one nearest to you.",
                   maxLines: 4,
                   style: TextStyle(
                     fontSize: 24,
@@ -48,30 +50,33 @@ class _StoresListPageState extends State<StoresListPage> {
                 ),
               ),
               SizedBox(height: 12,),
-              StreamBuilder(
-                  stream:
-                      Firestore.instance.collection(stores_collection).snapshots(),
-                  builder: (context, snapshot) {
-                    switch (snapshot.connectionState) {
-                      case ConnectionState.waiting:
-                        return Center(child: CircularProgressIndicator());
-                        break;
-                      default:
-                        if (snapshot.data.documents.length > 0) {
-                          return ListView.builder(
-                            shrinkWrap: true,
-                            itemBuilder: (context, index) {
-                              var data = snapshot.data.documents[index];
-                              return _vehicleCard(data);
-                            },
-                            itemCount: snapshot.data.documents.length,
+              Expanded(
+                child: StreamBuilder(
+                    stream:
+                        Firestore.instance.collection(stores_collection).snapshots(),
+                    builder: (context, snapshot) {
+                      switch (snapshot.connectionState) {
+                        case ConnectionState.waiting:
+                          return Center(child: CircularProgressIndicator());
+                          break;
+                        default:
+                          if (snapshot.data.documents.length > 0) {
+                            return ListView.builder(
+
+                              shrinkWrap: true,
+                              itemBuilder: (context, index) {
+                                var data = snapshot.data.documents[index];
+                                return _vehicleCard(data);
+                              },
+                              itemCount: snapshot.data.documents.length,
+                            );
+                          }
+                          return Center(
+                            child: Text("No Stores Added"),
                           );
-                        }
-                        return Center(
-                          child: Text("No Stores Added"),
-                        );
-                    }
-                  }),
+                      }
+                    }),
+              ),
             ],
           ),
         ),
@@ -82,10 +87,24 @@ class _StoresListPageState extends State<StoresListPage> {
   Widget _vehicleCard(DocumentSnapshot storeSnapshot) {
     StoreModel store =
         Provider.of<Store>(context).convertToStoreModel(storeSnapshot);
+    UserModel userProfile = Provider.of<User>(context).userProfile;
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: GestureDetector(
-        onTap: () {
+        onTap: () async{
+          await Firestore.instance
+              .collection(users_collection)
+              .document(userProfile.userDocId)
+              .collection('cart')
+              .getDocuments()
+              .then((QuerySnapshot snapshot) {
+            for (DocumentSnapshot doc in snapshot.documents) {
+              doc.reference.delete();
+            }
+          }).catchError((e){
+            print(e);
+          });
+
           Provider.of<User>(context, listen: false)
               .setUserStoreId(
               storeDocId: store.storeDocId,

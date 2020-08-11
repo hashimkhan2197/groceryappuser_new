@@ -27,6 +27,9 @@ class UserModel {
 
 
 class User with ChangeNotifier{
+  String first ;
+  String second;
+  String third;
 
   String _name ='name';
   String _address='address';
@@ -110,6 +113,12 @@ class User with ChangeNotifier{
       throw error;
     });
 
+    await Firestore.instance.collection('helpdata').document('deliverycharges').get()
+        .then((DocumentSnapshot value) {
+          first = value.data['first'];
+          second = value.data['second'];
+          third = value.data['third'];
+    });
     notifyListeners();
   }
 

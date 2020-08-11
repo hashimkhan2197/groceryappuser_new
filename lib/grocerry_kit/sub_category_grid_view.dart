@@ -5,6 +5,7 @@ import 'package:groceryappuser/grocerry_kit/sub_pages/home_list.dart';
 import 'package:groceryappuser/providers/category.dart';
 import 'package:groceryappuser/providers/collection_names.dart';
 import 'package:groceryappuser/providers/product.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 
 class SubcategoryGridView extends StatefulWidget {
@@ -31,7 +32,7 @@ class _SubcategoryGridViewState extends State<SubcategoryGridView> {
         centerTitle: true,
         brightness: Brightness.dark,
         elevation: 0,
-        backgroundColor: Colors.blue,
+        backgroundColor: Hexcolor('#0644e3'),
         leading: GestureDetector(
           onTap: () {
             Navigator.pop(context);
@@ -99,9 +100,9 @@ class _SubcategoryGridViewState extends State<SubcategoryGridView> {
                 itemCount: snapShotData.length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  mainAxisSpacing: 20,
-                  crossAxisSpacing: 20,
-                  childAspectRatio: 0.6,
+                  mainAxisSpacing: 10,
+                  crossAxisSpacing: 10,
+                  childAspectRatio: 0.55,
                 ),
                 itemBuilder: (context, index) {
                   var data = snapshot.data.documents[index];
@@ -109,7 +110,6 @@ class _SubcategoryGridViewState extends State<SubcategoryGridView> {
                       .convertToProductModel(data);
                   return Container(
                     width: 130,
-                    height: 270,
                     child: Column(
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -127,7 +127,7 @@ class _SubcategoryGridViewState extends State<SubcategoryGridView> {
                               margin: EdgeInsets.all(10),
                               //padding: EdgeInsets.all(10),
                               width: 130,
-                              height: 130,
+                              height: 120,
                               alignment: Alignment.bottomCenter,
                               child: Image(
                                 fit: BoxFit.cover,

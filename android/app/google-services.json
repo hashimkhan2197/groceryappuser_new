@@ -1,63 +1,34 @@
 {
   "project_info": {
-    "project_number": "957922630620",
-    "firebase_url": "https://grocery-stores-8123e.firebaseio.com",
-    "project_id": "grocery-stores-8123e",
-    "storage_bucket": "grocery-stores-8123e.appspot.com"
+    "project_number": "979389776886",
+    "firebase_url": "https://doodel-a748b.firebaseio.com",
+    "project_id": "doodel-a748b",
+    "storage_bucket": "doodel-a748b.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:957922630620:android:913a754cccd777425a8d19",
-        "android_client_info": {
-          "package_name": "app.grocerycorporation.groceryapp"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "957922630620-vnv78ojiijetupjmrql2m1vv60tfonm2.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyDhrW082_bFxBaVagtCLS4c-zHDQXkBEok"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "957922630620-vnv78ojiijetupjmrql2m1vv60tfonm2.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:957922630620:android:fec36f2c6b10f4de5a8d19",
+        "mobilesdk_app_id": "1:979389776886:android:066f248f37a282a67b3dd7",
         "android_client_info": {
           "package_name": "app.grocerycorporation.groceryappuser"
         }
       },
       "oauth_client": [
         {
-          "client_id": "957922630620-vnv78ojiijetupjmrql2m1vv60tfonm2.apps.googleusercontent.com",
+          "client_id": "979389776886-gif3v6cf64niq2gjh2ki68nk6uhd8k0u.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDhrW082_bFxBaVagtCLS4c-zHDQXkBEok"
+          "current_key": "AIzaSyDl5V5Lxx77eW5Wc2O5hwhvAmSvhfTRuSc"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "957922630620-vnv78ojiijetupjmrql2m1vv60tfonm2.apps.googleusercontent.com",
+              "client_id": "979389776886-gif3v6cf64niq2gjh2ki68nk6uhd8k0u.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

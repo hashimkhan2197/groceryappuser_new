@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:groceryappuser/providers/collection_names.dart';
 import 'package:groceryappuser/providers/user.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 
 
@@ -32,7 +33,18 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: Colors.blue,
+        backgroundColor: Hexcolor('#0644e3'),
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
+        ),
+        automaticallyImplyLeading: false,
+
         elevation: 0,
         title: Text(
           'Edit Profile',style: TextStyle(color: Colors.white,fontSize: 24)
@@ -156,7 +168,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       Container(
                         margin: EdgeInsets.only(top: 16, bottom: 16),
                         decoration: BoxDecoration(
-                          color: Theme.of(context).primaryColor,
+                          color: Hexcolor('#0644e3'),
                           shape: BoxShape.rectangle,
                           borderRadius: BorderRadius.all(Radius.circular(8)),
                         ),

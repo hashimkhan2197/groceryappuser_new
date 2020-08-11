@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:groceryappuser/grocerry_kit/product_grid_view_page.dart';
 import 'package:groceryappuser/providers/category.dart';
 import 'package:groceryappuser/providers/collection_names.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 
 
@@ -21,7 +22,7 @@ class _CategoryGridViewState extends State<CategoryGridView> {
         centerTitle: true,
         brightness: Brightness.dark,
         elevation: 0,
-        backgroundColor: Colors.blue,
+        backgroundColor: Hexcolor('#0644e3'),
         leading: GestureDetector(
           onTap: () {
             Navigator.pop(context);

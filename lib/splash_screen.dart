@@ -3,9 +3,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'package:hexcolor/hexcolor.dart';
 import 'dart:async';
 
 import 'package:groceryappuser/grocerry_kit/SignIn.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -32,19 +34,16 @@ class _SplashScreenState extends State<SplashScreen> {
 //      _url = value.data['url'];
 //    });
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Hexcolor('#0644e3'),
       body: Center(
-          child: CircleAvatar(
-            backgroundColor: Colors.blue,
-        maxRadius: 150,
-        child: Center(
-          child: Text(
-            "Logo Here",
-            style: TextStyle(
-                color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
-          ),
-        ),
-      )),
+          child: Container(height: 250,
+            margin: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              // color: product.color,
+                borderRadius: BorderRadius.circular(16),
+                image: DecorationImage(
+                    image: AssetImage("images/splash.png"), fit: BoxFit.fitWidth)),
+          ),),
     );
   }
 }

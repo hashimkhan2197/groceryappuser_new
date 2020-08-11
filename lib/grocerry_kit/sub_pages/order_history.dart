@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:groceryappuser/grocerry_kit/sub_pages/order_Page.dart';
 import 'package:groceryappuser/providers/collection_names.dart';
 import 'package:groceryappuser/providers/user.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 
 class OrderHistory extends StatefulWidget {
@@ -22,7 +23,7 @@ class _OrderHistoryState extends State<OrderHistory> {
         centerTitle: true,
         brightness: Brightness.dark,
         elevation: 0,
-        backgroundColor: Colors.blue,
+        backgroundColor: Hexcolor('#0644e3'),
         automaticallyImplyLeading: false,
         title: Text(
           "Order History",

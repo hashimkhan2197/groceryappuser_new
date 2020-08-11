@@ -8,6 +8,7 @@ import 'package:groceryappuser/grocerry_kit/sign_up.dart';
 import 'package:groceryappuser/grocerry_kit/store_package/stores_list_screen.dart';
 import 'package:groceryappuser/providers/user.dart';
 import 'package:groceryappuser/style_functions.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -50,7 +51,7 @@ class _SignInPageState extends State<SignInPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: Colors.blue,
+        backgroundColor: Hexcolor('#0644e3'),
         automaticallyImplyLeading: false,
         elevation: 0,
         title: Text(
@@ -68,9 +69,15 @@ class _SignInPageState extends State<SignInPage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
+                Container(height: 200,
+                  margin: EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    // color: product.color,
+                      borderRadius: BorderRadius.circular(16),
+                      image: DecorationImage(
+                          image: AssetImage("images/logo.jpeg"), fit: BoxFit.fitHeight)),
+                ),
                 SizedBox(height: 10,),
-                CircleAvatar(maxRadius: 80,backgroundColor: Colors.blue,),
-                SizedBox(height: 16,),
                 Text(
                   'Welcome!',
                   style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
@@ -178,7 +185,7 @@ class _SignInPageState extends State<SignInPage> {
                   Container(
                     margin: EdgeInsets.only(top: 16, bottom: 16),
                     decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColor,
+                      color: Hexcolor('#0644e3'),
                       shape: BoxShape.rectangle,
                       borderRadius: BorderRadius.all(Radius.circular(8)),
                     ),
@@ -200,16 +207,16 @@ class _SignInPageState extends State<SignInPage> {
                     margin: EdgeInsets.only(top: 0, bottom: 16),
                     decoration: BoxDecoration(
 
-                      border: Border.all(color: Colors.blue),
+                      border: Border.all(color: Hexcolor('#0644e3')),
                       // shape: BoxShape.rectangle,
                       borderRadius: BorderRadius.all(Radius.circular(8)),
                     ),
                     width: 250,
                     child: FlatButton(
                       child: Text('Sign Up',
-                          style: TextStyle(fontSize: 20, color: Colors.blue)),
+                          style: TextStyle(fontSize: 20, color: Hexcolor('#0644e3'))),
                       onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context){
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
                           return SignUpPage();
                         }));
                       },

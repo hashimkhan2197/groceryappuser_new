@@ -6,6 +6,7 @@ import 'package:groceryappuser/grocerry_kit/SignIn.dart';
 import 'package:groceryappuser/grocerry_kit/sub_pages/edit_profile_page.dart';
 import 'package:groceryappuser/providers/collection_names.dart';
 import 'package:groceryappuser/providers/user.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 
 class MyProfile extends StatefulWidget {
@@ -33,8 +34,8 @@ class _MyProfileState extends State<MyProfile> {
     return Scaffold(
       backgroundColor: Colors.white70,
       appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: Colors.blue,
+        centerTitle: true,automaticallyImplyLeading: false,
+        backgroundColor: Hexcolor('#0644e3'),
         elevation: 0,
         title: Text(
           'My Profile',style: TextStyle(color: Colors.white,fontSize: 24)
@@ -113,10 +114,10 @@ class _MyProfileState extends State<MyProfile> {
                                 Provider.of<User>(context, listen: false)
                                     .clearSharedPreferences()
                                     .then((value) {
-                                  Navigator.pushReplacement(context,
+                                  Navigator.pushAndRemoveUntil(context,
                                       MaterialPageRoute(builder: (context) {
                                         return SignInPage();
-                                      }));
+                                      }),(Route<dynamic> route) => false);
                                 });
                               },
                               //color: Theme.of(context).primaryColor,

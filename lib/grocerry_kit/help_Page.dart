@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:groceryappuser/providers/user.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 
 class HelpPage extends StatefulWidget {
@@ -28,15 +29,16 @@ class _HelpPageState extends State<HelpPage> {
     return Scaffold(
       key: _scacffoldKey,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         centerTitle: true,
-        backgroundColor: Colors.blue,
+        backgroundColor: Hexcolor('#0644e3'),
         elevation: 0,
         title: Text(
           'Help',style: TextStyle(color: Colors.white,fontSize: 24)
         ),),
 
       body: StreamBuilder(
-        stream: Firestore.instance.collection('helpdata').snapshots(),
+        stream: Firestore.instance.collection('helpdata').document('helpdata').snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
@@ -70,7 +72,7 @@ class _HelpPageState extends State<HelpPage> {
                   alignment: Alignment.centerLeft,
                   padding: EdgeInsets.only(left: 16, top: 4),
                   child: Text(
-                    "Email: "+snapshot.data.documents[0].data['email'],
+                    "Email: "+snapshot.data['email'],
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w500,
@@ -82,7 +84,7 @@ class _HelpPageState extends State<HelpPage> {
                   alignment: Alignment.centerLeft,
                   padding: EdgeInsets.only(left: 16, top: 4),
                   child: Text(
-                    "Number: "+snapshot.data.documents[0].data['number'],
+                    "Number: "+snapshot.data['number'],
                     style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w500,
@@ -104,13 +106,14 @@ class _HelpPageState extends State<HelpPage> {
                       Firestore.instance.collection('help').add({
                         'message': _helpController.text,
                         'number': userProfile.phoneNumber,
-                        'name': userProfile.name
+                        'name': userProfile.name,
+                        'email': userProfile.email
                       }).then((value) {
                         _scacffoldKey.currentState.showSnackBar(SnackBar(
                           content: Text(
                             "Your question has been submitted.",
                           ),
-                          backgroundColor:Colors.blue,
+                          backgroundColor:Hexcolor('#0644e3'),
                         ));
                       });
                       setState(() {

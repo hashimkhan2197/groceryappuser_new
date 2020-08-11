@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:groceryappuser/grocerry_kit/store_package/stores_list_screen.dart';
 import 'package:groceryappuser/providers/collection_names.dart';
 import 'package:groceryappuser/providers/user.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -38,7 +39,7 @@ class _SignUpPageState extends State<SignUpPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: Colors.blue,
+        backgroundColor: Hexcolor('#0644e3'),
         elevation: 0,
         automaticallyImplyLeading: false,
         title: Text(
@@ -239,7 +240,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   Container(
                     margin: EdgeInsets.only(top: 16, bottom: 16),
                     decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColor,
+                      color: Hexcolor('#0644e3'),
                       shape: BoxShape.rectangle,
                       borderRadius: BorderRadius.all(Radius.circular(8)),
                     ),
@@ -260,14 +261,14 @@ class _SignUpPageState extends State<SignUpPage> {
                   Container(
                     margin: EdgeInsets.only(top: 0, bottom: 16),
                     decoration: BoxDecoration(
-                      border: Border.all(color: Colors.blue),
+                      border: Border.all(color: Hexcolor('#0644e3')),
                       // shape: BoxShape.rectangle,
                       borderRadius: BorderRadius.all(Radius.circular(8)),
                     ),
                     width: 250,
                     child: FlatButton(
                       child: Text('Sign In',
-                          style: TextStyle(fontSize: 20, color: Colors.blue)),
+                          style: TextStyle(fontSize: 20, color: Hexcolor('#0644e3'))),
                       onPressed: () {
                         Navigator.pushReplacement(context,
                             MaterialPageRoute(builder: (context) {

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:groceryappuser/providers/user.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 
 class FeedbackPage extends StatefulWidget {
@@ -25,8 +26,9 @@ class _FeedbackPageState extends State<FeedbackPage> {
     return Scaffold(
       key: _scacffoldKey,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         centerTitle: true,
-        backgroundColor: Colors.blue,
+        backgroundColor: Hexcolor('#0644e3'),
         elevation: 0,
         title: Text(
           'Feedback',style: TextStyle(color: Colors.white,fontSize: 24)
@@ -65,13 +67,14 @@ class _FeedbackPageState extends State<FeedbackPage> {
                   Firestore.instance.collection('improvements').add({
                     'message': _improvementController.text,
                     'number': userProfile.phoneNumber,
-                    'name': userProfile.name
+                    'name': userProfile.name,
+                    'email': userProfile.email
                   }).then((value) {
                     _scacffoldKey.currentState.showSnackBar(SnackBar(
                       content: Text(
                         "Your Feedback has been submitted.",
                       ),
-                      backgroundColor: Colors.blue,
+                      backgroundColor: Hexcolor('#0644e3'),
                     ));
                   });
                   setState(() {

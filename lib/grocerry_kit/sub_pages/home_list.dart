@@ -1,14 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:groceryappuser/grocerry_kit/home_page.dart';
 import 'package:groceryappuser/grocerry_kit/store_package/stores_list_screen.dart';
 import 'package:groceryappuser/grocerry_kit/sub_pages/cartPage.dart';
-import 'package:groceryappuser/providers/cart.dart';
 import 'package:groceryappuser/providers/category.dart';
 import 'package:groceryappuser/providers/collection_names.dart';
 import 'package:groceryappuser/providers/product.dart';
 import 'package:groceryappuser/providers/user.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 
 import '../category_grid_view_Page.dart';
@@ -32,7 +31,7 @@ class _HomeListState extends State<HomeList> {
         centerTitle: true,
         brightness: Brightness.dark,
         elevation: 0,
-        backgroundColor: Colors.blue,
+        backgroundColor: Hexcolor('#0644e3'),
         automaticallyImplyLeading: false,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -99,7 +98,7 @@ class _HomeListState extends State<HomeList> {
                     },
                     child: Text(
                       'more..',
-                      style: TextStyle(color: Colors.blue,fontSize: 18),
+                      style: TextStyle(color: Hexcolor('#0644e3'),fontSize: 18),
                     ),
                   ),
                 ),
@@ -257,7 +256,7 @@ class _HomeListState extends State<HomeList> {
                                       'more..',
                                       style: TextStyle(
                                           color:
-                                              Colors.blue,fontSize: 18),
+                                              Hexcolor('#0644e3'),fontSize: 18),
                                     ),
                                   ),
                                 ),
@@ -327,7 +326,7 @@ class _HomeListState extends State<HomeList> {
                                       margin: EdgeInsets.all(10),
                                       //padding: EdgeInsets.all(10),
                                       width: 130,
-                                      height: 130,
+                                      height: 120,
                                       alignment: Alignment.bottomCenter,
                                       child: Image(
                                         fit: BoxFit.fill,
@@ -499,7 +498,7 @@ class _PriceContainerState extends State<PriceContainer> {
                       "Item added to cart",
                       style: TextStyle(fontSize: 18),
                     ),
-                    backgroundColor: Colors.blue,
+                    backgroundColor: Hexcolor('#0644e3'),
                     duration: Duration(milliseconds: 1000),
                   ));
                 }).catchError((e) {
