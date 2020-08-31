@@ -163,16 +163,11 @@ class _MyProfileState extends State<MyProfile> {
               color: Colors.grey[500],
               size: 25,
             ),
-            SizedBox(width: 10.0),
-            Text(
-              heading,
-              style: TextStyle(color: Colors.grey[600], fontSize: 16),
-            ),
-            SizedBox(width: 20.0),
+            SizedBox(width: 15.0),
             Text(
               data,
               maxLines: 5,
-              style: TextStyle(fontSize: 20, ),
+              style: TextStyle(fontSize: 19, ),
             )
           ],
         ),

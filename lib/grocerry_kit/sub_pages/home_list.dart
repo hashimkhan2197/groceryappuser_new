@@ -93,8 +93,8 @@ class _HomeListState extends State<HomeList> {
                       //print(widget.storeDocId);
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) {
-                        return CategoryGridView(widget.storeDocId);
-                      }));
+                            return CategoryGridView(widget.storeDocId);
+                          }));
                     },
                     child: Text(
                       'more..',
@@ -131,65 +131,65 @@ class _HomeListState extends State<HomeList> {
                 default:
                   return snapshot.data.documents.length == 0
                       ? Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Text("No categories added."),
-                        )
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text("No categories added."),
+                  )
                       : ListView.builder(
-                          shrinkWrap: true,
-                          physics: ClampingScrollPhysics(),
-                          scrollDirection: Axis.horizontal,
-                          itemCount: snapshot.data.documents.length > 3
-                              ? 3
-                              : snapshot.data.documents.length,
-                          itemBuilder: (context, index) {
-                            var data = snapshot.data.documents[index];
-                            var category = Provider.of<Category>(context)
-                                .convertToCategoryModel(data);
-                            return Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 16.0, top: 12),
-                              child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: <Widget>[
-                                    GestureDetector(
-                                      onTap: () {
-                                        Navigator.push(context,
-                                            MaterialPageRoute(
-                                                builder: (context) {
-                                          return ProductGridView(
-                                              widget.storeDocId,
-                                              category.categoryDocId,
-                                              category.categoryName);
-                                        }));
-                                      },
-                                      child: CircleAvatar(
-                                        maxRadius: 70,
-                                        backgroundColor:
-                                            Theme.of(context).primaryColor,
-                                        backgroundImage: NetworkImage(
-                                            category.categoryImageRef),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 5,
-                                    ),
-                                    Row(
-                                      children: <Widget>[
-                                        Text(
-                                          category.categoryName,
-                                          style: TextStyle(
-                                              fontSize: 22,
-                                              fontWeight: FontWeight.bold,
-                                              color: Theme.of(context)
-                                                  .primaryColor),
-                                        ),
-                                      ],
-                                    )
-                                  ]),
-                            );
-                          },
-                        );
+                    shrinkWrap: true,
+                    physics: ClampingScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    itemCount: snapshot.data.documents.length > 3
+                        ? 3
+                        : snapshot.data.documents.length,
+                    itemBuilder: (context, index) {
+                      var data = snapshot.data.documents[index];
+                      var category = Provider.of<Category>(context)
+                          .convertToCategoryModel(data);
+                      return Padding(
+                        padding:
+                        const EdgeInsets.only(left: 16.0, top: 12),
+                        child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(context,
+                                      MaterialPageRoute(
+                                          builder: (context) {
+                                            return ProductGridView(
+                                                widget.storeDocId,
+                                                category.categoryDocId,
+                                                category.categoryName);
+                                          }));
+                                },
+                                child: CircleAvatar(
+                                  maxRadius: 70,
+                                  backgroundColor:
+                                  Theme.of(context).primaryColor,
+                                  backgroundImage: NetworkImage(
+                                      category.categoryImageRef),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Row(
+                                children: <Widget>[
+                                  Text(
+                                    category.categoryName,
+                                    style: TextStyle(
+                                        fontSize: 22,
+                                        fontWeight: FontWeight.bold,
+                                        color: Theme.of(context)
+                                            .primaryColor),
+                                  ),
+                                ],
+                              )
+                            ]),
+                      );
+                    },
+                  );
               }
             }));
   }
@@ -210,63 +210,63 @@ class _HomeListState extends State<HomeList> {
             default:
               return snapshot.data.documents.length == 0
                   ? Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Text("No categories added."),
-                    )
+                padding: const EdgeInsets.all(16.0),
+                child: Text("No categories added."),
+              )
                   : ListView.builder(
-                      shrinkWrap: true,
-                      physics: ClampingScrollPhysics(),
-                      scrollDirection: Axis.vertical,
-                      itemCount: snapshot.data.documents.length,
-                      itemBuilder: (context, index) {
-                        var data = snapshot.data.documents[index];
-                        var category = Provider.of<Category>(context)
-                            .convertToCategoryModel(data);
-                        return Column(
-                          children: <Widget>[
-                            SizedBox(
-                              height: 16,
+                shrinkWrap: true,
+                physics: ClampingScrollPhysics(),
+                scrollDirection: Axis.vertical,
+                itemCount: snapshot.data.documents.length,
+                itemBuilder: (context, index) {
+                  var data = snapshot.data.documents[index];
+                  var category = Provider.of<Category>(context)
+                      .convertToCategoryModel(data);
+                  return Column(
+                    children: <Widget>[
+                      SizedBox(
+                        height: 16,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Padding(
+                            padding: EdgeInsets.only(left: 16, top: 4),
+                            child: Text(
+                              category.categoryName,
+                              style: TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Padding(
-                                  padding: EdgeInsets.only(left: 16, top: 4),
-                                  child: Text(
-                                    category.categoryName,
-                                    style: TextStyle(
-                                      fontSize: 22,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(left: 16, top: 4),
-                                  child: FlatButton(
-                                    onPressed: () {
-                                      Navigator.push(context,
-                                          MaterialPageRoute(builder: (context) {
-                                        return ProductGridView(
-                                            widget.storeDocId,
-                                            category.categoryDocId,
-                                            category.categoryName);
-                                      }));
-                                    },
-                                    child: Text(
-                                      'more..',
-                                      style: TextStyle(
-                                          color:
-                                              Hexcolor('#0644e3'),fontSize: 18),
-                                    ),
-                                  ),
-                                ),
-                              ],
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(left: 16, top: 4),
+                            child: FlatButton(
+                              onPressed: () {
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) {
+                                      return ProductGridView(
+                                          widget.storeDocId,
+                                          category.categoryDocId,
+                                          category.categoryName);
+                                    }));
+                              },
+                              child: Text(
+                                'more..',
+                                style: TextStyle(
+                                    color:
+                                    Hexcolor('#0644e3'),fontSize: 18),
+                              ),
                             ),
-                            _buildCategoryProductsList(category.categoryDocId),
-                          ],
-                        );
-                      },
-                    );
+                          ),
+                        ],
+                      ),
+                      _buildCategoryProductsList(category.categoryDocId),
+                    ],
+                  );
+                },
+              );
           }
         });
   }
@@ -292,69 +292,69 @@ class _HomeListState extends State<HomeList> {
                 default:
                   return snapshot.data.documents.length == 0
                       ? Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Text("No Products added."),
-                        )
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text("No Products added."),
+                  )
                       : ListView.builder(
-                          shrinkWrap: true,
-                          physics: ClampingScrollPhysics(),
-                          scrollDirection: Axis.horizontal,
-                          itemCount: snapshot.data.documents.length > 3
-                              ? 3
-                              : snapshot.data.documents.length,
-                          itemBuilder: (context, index) {
-                            var data = snapshot.data.documents[index];
-                            ProductModel product = Provider.of<Product>(context)
-                                .convertToProductModel(data);
-                            return Column(
-                                mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: <Widget>[
-                                  GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(context,
-                                          MaterialPageRoute(builder: (context) {
-                                        return SubcategoryGridView(
-                                          storeDocId: widget.storeDocId,
-                                          categoryDocid: categoryDocId,
-                                          productName: product.productName,
-                                          subProductDocid: product.productDocId,
-                                        );
-                                      }));
-                                    },
-                                    child: Container(
-                                      margin: EdgeInsets.all(10),
-                                      //padding: EdgeInsets.all(10),
-                                      width: 130,
-                                      height: 120,
-                                      alignment: Alignment.bottomCenter,
-                                      child: Image(
-                                        fit: BoxFit.fill,
-                                        //alignment: Alignment.topRight,
-                                        image: NetworkImage(
-                                            product.productImageRef),
-                                      ),
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        shape: BoxShape.rectangle,
-                                        borderRadius: BorderRadius.circular(12),
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    width: 130,
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      product.productName,
-                                      style: TextStyle(
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.w500,
-                                        color: Colors.black54,
-                                      ),
-                                    ),
-                                  ),
-                                  if (product.productPrice != '' || product.productPrice == null)
-                                    PriceContainer(product, widget.storeDocId),
+                    shrinkWrap: true,
+                    physics: ClampingScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    itemCount: snapshot.data.documents.length > 3
+                        ? 3
+                        : snapshot.data.documents.length,
+                    itemBuilder: (context, index) {
+                      var data = snapshot.data.documents[index];
+                      ProductModel product = Provider.of<Product>(context)
+                          .convertToProductModel(data);
+                      return Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) {
+                                      return SubcategoryGridView(
+                                        storeDocId: widget.storeDocId,
+                                        categoryDocid: categoryDocId,
+                                        productName: product.productName,
+                                        subProductDocid: product.productDocId,
+                                      );
+                                    }));
+                              },
+                              child: Container(
+                                margin: EdgeInsets.all(10),
+                                //padding: EdgeInsets.all(10),
+                                width: 130,
+                                height: 120,
+                                alignment: Alignment.bottomCenter,
+                                child: Image(
+                                  fit: BoxFit.fill,
+                                  //alignment: Alignment.topRight,
+                                  image: NetworkImage(
+                                      product.productImageRef),
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  shape: BoxShape.rectangle,
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                              ),
+                            ),
+                            Container(
+                              width: 130,
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                product.productName,
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.black54,
+                                ),
+                              ),
+                            ),
+                            if (product.productPrice != '' || product.productPrice == null)
+                              PriceContainer(product, widget.storeDocId),
 //                                  if(product.productPrice == "")
 //                                    Container(
 //                                        width: 130,
@@ -390,9 +390,9 @@ class _HomeListState extends State<HomeList> {
 //                                            ),
 //                                          ),
 //                                        ))
-                                ]);
-                          },
-                        );
+                          ]);
+                    },
+                  );
               }
             }));
   }
